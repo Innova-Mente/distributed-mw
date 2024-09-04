@@ -18,6 +18,8 @@ const handleSubscribeMessage = (client, topic) => {
 
     // when the client closes the connection, remove it from the topic list
     client.on('close', () => {
+        console.log(`[UNSUBSCRIBE]\t [TOPIC: ${topic}]`);
+
         // checks that the topic still exists
         if (!topicsClients[topic]) return;
 
