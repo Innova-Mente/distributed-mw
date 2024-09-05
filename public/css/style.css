@@ -3,41 +3,58 @@ html, body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
+
 body {
     display: flex;
     flex-direction: column;
 }
-h1 {
-    font-weight: 700;
-    padding: 20px;
-    margin: 0;
+
+header {
     background-color: #f2f2f2;
+    padding: 2vh 20px;
+    max-height: 6vh;
 }
-.content-section {
+
+section {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 2vh 20px;
+    max-height: 86vh;
 }
+
+h1 {
+    font-weight: 700;
+    margin: 0;
+}
+
 .table-container {
     flex: 1;
     overflow-y: auto;
-    border-top: 1px solid #ddd;
+    position: relative;
 }
+
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
 }
+
 th, td {
-    border: 1px solid #d0cfcf;
+    border: 0.5px solid #d0cfcf;
     padding: 8px;
 }
+
 th {
     background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
 }
+
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
+
 tr:hover {
     background-color: #ddd;
 }
