@@ -55,11 +55,13 @@ async function displayLogs() {
         const row = document.createElement('tr');
         const timestampCell = document.createElement('td');
         const typeCell = document.createElement('td');
+        const ipAddressCell = document.createElement('td');
         const topicCell = document.createElement('td');
         const payloadCell = document.createElement('td');
 
         timestampCell.textContent = new Date(log.timestamp).toLocaleString();
         typeCell.textContent = log.type;
+        ipAddressCell.textContent = log.ipAddress;
         topicCell.textContent = log.topic;
         payloadCell.textContent = JSON.stringify(log.payload);
         if (log.type === "error") {
@@ -68,6 +70,7 @@ async function displayLogs() {
 
         row.appendChild(timestampCell);
         row.appendChild(typeCell);
+        row.appendChild(ipAddressCell);
         row.appendChild(topicCell);
         row.appendChild(payloadCell);
         logsTableBody.appendChild(row);
