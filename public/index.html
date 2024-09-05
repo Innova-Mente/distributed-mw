@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/dashboard.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Dashboard dei MicroMondi</title>
+</head>
+<body>
+    <h1>Dashboard dei MicroMondi</h1>
+    <p id="microMondiText"></p>
+
+    <h2>Lista dei canali di informazione con i loro ascoltatori</h2>
+    <ul id="topicsClientsContainer"></ul>
+
+    <h2>Log del server</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Orario di invio</th>
+                <th>Tipo di messaggio</th>
+                <th>Canale di informazione</th>
+                <th>Contenuto</th>
+            </tr>
+        </thead>
+        <tbody id="logsTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        displayTopicsData();
+        displayLogs();
+    </script>
+</body>
+</html>

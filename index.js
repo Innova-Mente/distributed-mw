@@ -1,10 +1,25 @@
 import { WebSocketServer, WebSocket } from 'ws';
+import express from 'express';
+import http from 'http';
 
 const topicsClients = {};
+const logs = [];
 const server = new WebSocketServer({ port: 20000 });
 
-const handleSubscribeMessage = (client, topic) => {
-    console.log(`[SUBSCRIBE]\t [TOPIC: ${topic}]`);
+const logMessage = (type, topic, payload) => {
+    console.log(`[TYPE: ${type}]\t [TOPIC: ${topic}]\t payload:${JSON.stringify(payload)}\n`);
+
+    logs.push({
+        timestamp: new Date(),
+        type,
+        topic,
+        payload
+    });
+    if (logs.length > 100) logs.shift();
+}
+
+const handleSubscribeMessage = (topic, client, payload) => {
+    logMessage("subscribe", topic, payload);
 
     // if it's a new topic create an empty list to store the clients subscribed to it
     if (!topicsClients[topic]) {
@@ -13,12 +28,13 @@ const handleSubscribeMessage = (client, topic) => {
 
     // add the client to the list of clients subscribed to that topic
     if (!topicsClients[topic].includes(client)) {
+        client.name = payload.clientName;
         topicsClients[topic].push(client);
     }
 
     // when the client closes the connection, remove it from the topic list
     client.on('close', () => {
-        console.log(`[UNSUBSCRIBE]\t [TOPIC: ${topic}]`);
+        logMessage("unsubscribe", topic, payload);
 
         // checks that the topic still exists
         if (!topicsClients[topic]) return;
@@ -32,8 +48,8 @@ const handleSubscribeMessage = (client, topic) => {
     });
 }
 
-const handlePublishMessage = (payload, topic) => {
-    console.log(`[PUBLISH]\t [TOPIC: ${topic}]\t payload:`, JSON.stringify(payload));
+const handlePublishMessage = (topic, payload) => {
+    logMessage("publish", topic, payload);
 
     const message = JSON.stringify({
         topic,
@@ -47,18 +63,32 @@ const handlePublishMessage = (payload, topic) => {
 server.on('connection', (client) => {
     client.on('message', (rawMessage) => {
         const message = JSON.parse(rawMessage);
-        const { type, topic } = message;
+        const { type, topic, payload } = message;
 
         switch (type) {
             case 'subscribe':
-                handleSubscribeMessage(client, topic);
+                handleSubscribeMessage(topic, client, payload);
                 break;
             case 'publish':
-                handlePublishMessage(message.payload, topic);
+                handlePublishMessage(topic, payload);
                 break;
             default:
-                console.log('Unknown message type');
+                logMessage("error", "unknown message type", "");
                 break;
         }
     });
 });
+
+const webServer = express();
+
+webServer.use(express.static('public'));
+
+webServer.get('/api/topicsClients', (_, res) => {
+    res.json(topicsClients);
+});
+
+webServer.get('/api/logs', (_, res) => {
+    res.json(logs);
+});
+
+http.createServer(webServer).listen(80);
