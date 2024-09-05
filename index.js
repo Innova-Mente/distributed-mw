@@ -7,7 +7,7 @@ const logs = [];
 const server = new WebSocketServer({ port: 20000 });
 
 const logMessage = (type, topic, payload) => {
-    console.log(`[TYPE: ${type}]\t [TOPIC: ${topic}]\t payload:${JSON.stringify(payload)}\n`);
+    console.log(`[TYPE: ${type}]\t [TOPIC: ${topic}]\t payload:${JSON.stringify(payload)}`);
 
     logs.push({
         timestamp: new Date(),
@@ -29,6 +29,7 @@ const handleSubscribeMessage = (topic, client, payload) => {
     // add the client to the list of clients subscribed to that topic
     if (!topicsClients[topic].includes(client)) {
         client.name = payload.clientName;
+        client.ipAddress = payload.ipAddress;
         topicsClients[topic].push(client);
     }
 
@@ -60,13 +61,15 @@ const handlePublishMessage = (topic, payload) => {
     topicsClients[topic]?.filter(client => client.readyState === WebSocket.OPEN).forEach(client => client.send(message));
 }
 
-server.on('connection', (client) => {
+server.on('connection', (client, req) => {
     client.on('message', (rawMessage) => {
         const message = JSON.parse(rawMessage);
         const { type, topic, payload } = message;
 
         switch (type) {
             case 'subscribe':
+                payload.ipAddress = req.socket.remoteAddress.replace("::ffff:", "");
+                if (payload.ipAddress === "::1") payload.ipAddress = "localhost";
                 handleSubscribeMessage(topic, client, payload);
                 break;
             case 'publish':

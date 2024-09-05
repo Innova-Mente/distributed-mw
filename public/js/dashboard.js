@@ -24,7 +24,7 @@ async function displayTopicsData() {
             }
 
             const clientElement = document.createElement('li');
-            clientElement.innerHTML = client.name;
+            clientElement.innerHTML = `${client.name} (${client.ipAddress})`;
             clientsContainer.appendChild(clientElement);
         });
 
@@ -38,7 +38,11 @@ async function displayTopicsData() {
         topicContainer.innerHTML = `<strong>${topic}</strong> (${topicDescription}):${clientsContainer.outerHTML}`;
         container.appendChild(topicContainer);
     }
-    document.getElementById('microMondiText').innerHTML = `In questo momento sono in esecuzione <strong>${microMondiCount}</strong> MicroMondi.`;
+
+    let microMondiText = `In questo momento sono in esecuzione <strong>${microMondiCount}</strong> MicroMondi.`;
+    if (microMondiCount === 0) microMondiText = "In questo momento non ci sono MicroMondi in esecuzione.";
+    if (microMondiCount === 1) microMondiText = "In questo momento è in esecuzione un solo MicroMondo.";
+    document.getElementById('microMondiText').innerHTML = microMondiText;
 }
 
 async function displayLogs() {
