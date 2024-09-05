@@ -7,7 +7,7 @@ const logs = [];
 const server = new WebSocketServer({ port: 20000 });
 
 const logMessage = (type, topic, ipAddress, payload) => {
-    console.log(`[TYPE: ${type}]\t [IP ADDRESS: ${ipAddress}]\t [TOPIC: ${topic}]\t payload:${JSON.stringify(payload)}`);
+    console.log(`[${type}]\t [${ipAddress}]\t [${topic}]\t payload:${JSON.stringify(payload)}`);
 
     logs.unshift({
         timestamp: new Date(),
