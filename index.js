@@ -9,14 +9,14 @@ const server = new WebSocketServer({ port: 20000 });
 const logMessage = (type, topic, ipAddress, payload) => {
     console.log(`[TYPE: ${type}]\t [IP ADDRESS: ${ipAddress}]\t [TOPIC: ${topic}]\t payload:${JSON.stringify(payload)}`);
 
-    logs.push({
+    logs.unshift({
         timestamp: new Date(),
         type,
         ipAddress,
         topic,
         payload
     });
-    if (logs.length > 100) logs.shift();
+    if (logs.length > 100) logs.pop();
 }
 
 const handleSubscribeMessage = (topic, ipAddress, payload, client) => {
