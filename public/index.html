@@ -9,28 +9,32 @@
     <title>Dashboard dei MicroMondi</title>
 </head>
 <body>
-    <h1>Dashboard dei MicroMondi</h1>
-    <p id="microMondiText"></p>
+    <header>
+        <h1>Dashboard dei MicroMondi</h1>
+    </header>
+    <section class="content-section">
+        <p id="microMondiText"></p>
 
-    <h2>Lista dei canali di informazione con i loro ascoltatori</h2>
-    <ul id="topicsClientsContainer"></ul>
+        <h2>Lista dei canali di informazione con i loro ascoltatori</h2>
+        <ul id="topicsClientsContainer"></ul>
 
-    <h2>Log del server</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Orario di invio</th>
-                    <th>Tipo di messaggio</th>
-                    <th>Mittente</th>
-                    <th>Canale di informazione</th>
-                    <th>Contenuto</th>
-                </tr>
-            </thead>
-            <tbody id="logsTableBody">
-            </tbody>
-        </table>
-    </div>
+        <h2>Log del server</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Orario di invio</th>
+                        <th>Tipo di messaggio</th>
+                        <th>Mittente</th>
+                        <th>Canale di informazione</th>
+                        <th>Contenuto</th>
+                    </tr>
+                </thead>
+                <tbody id="logsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <script>
         displayTopicsData();
