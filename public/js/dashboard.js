@@ -13,7 +13,7 @@ async function displayTopicsData() {
     let microMondiCount = 0;
 
     const container = document.getElementById('topicsClientsContainer');
-    container.innerHTML = '';
+    container.innerHTML = topics.length ? 'Non sono presenti canali di informazione.' : '';
 
     for (const topic in topics) {
         const clientsContainer = document.createElement('ul');
