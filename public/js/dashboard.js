@@ -10,7 +10,7 @@ async function fetchLogs() {
 
 async function displayTopicsData() {
     const topics = await fetchTopicsData();
-    let microMondiCount = 0;
+    const clientNames = [];
 
     const container = document.getElementById('topicsClientsContainer');
     container.innerHTML = topics.length ? 'Non sono presenti canali di informazione.' : '';
@@ -19,9 +19,7 @@ async function displayTopicsData() {
         const clientsContainer = document.createElement('ul');
 
         topics[topic].forEach(client => {
-            if (client.name.includes("MicroMondo")) {
-                microMondiCount++;
-            }
+            if (!clientNames.includes(client.name)) clientNames.push(client.name);
 
             const clientElement = document.createElement('li');
             clientElement.innerHTML = `${client.name} (${client.ipAddress})`;
@@ -39,6 +37,7 @@ async function displayTopicsData() {
         container.appendChild(topicContainer);
     }
 
+    const microMondiCount = clientNames.filter(name => name.startsWith('MicroMondo')).length;
     let microMondiText = `In questo momento sono in esecuzione <strong>${microMondiCount}</strong> MicroMondi.`;
     if (microMondiCount === 0) microMondiText = "In questo momento non ci sono MicroMondi in esecuzione.";
     if (microMondiCount === 1) microMondiText = "In questo momento è in esecuzione un solo MicroMondo.";
