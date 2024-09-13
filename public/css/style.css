@@ -13,6 +13,9 @@ header {
     background-color: #f2f2f2;
     padding: 2vh 20px;
     max-height: 6vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 section {
@@ -26,6 +29,17 @@ section {
 h1 {
     font-weight: 700;
     margin: 0;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    width: fit-content;
+    padding: .7rem .7rem;
+    background-color: black;
+    color: white;
+    border: 0;
+    cursor: pointer;
 }
 
 .table-container {

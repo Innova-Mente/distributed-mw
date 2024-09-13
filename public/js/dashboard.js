@@ -1,3 +1,7 @@
+let topics;
+let logs;
+let microMondiCount;
+
 async function fetchTopicsData() {
     const response = await fetch('/api/topicsClients');
     return await response.json();
@@ -9,7 +13,7 @@ async function fetchLogs() {
 }
 
 async function displayTopicsData() {
-    const topics = await fetchTopicsData();
+    topics = await fetchTopicsData();
     const clientNames = [];
 
     const container = document.getElementById('topicsClientsContainer');
@@ -37,7 +41,7 @@ async function displayTopicsData() {
         container.appendChild(topicContainer);
     }
 
-    const microMondiCount = clientNames.filter(name => name.startsWith('MicroMondo')).length;
+    microMondiCount = clientNames.filter(name => name.startsWith('MicroMondo')).length;
     let microMondiText = `In questo momento sono in esecuzione <strong>${microMondiCount}</strong> MicroMondi.`;
     if (microMondiCount === 0) microMondiText = "In questo momento non ci sono MicroMondi in esecuzione.";
     if (microMondiCount === 1) microMondiText = "In questo momento è in esecuzione un solo MicroMondo.";
@@ -45,7 +49,7 @@ async function displayTopicsData() {
 }
 
 async function displayLogs() {
-    const logs = await fetchLogs();
+    logs = await fetchLogs();
 
     const logsTableBody = document.getElementById('logsTableBody');
     logsTableBody.innerHTML = '';
@@ -75,3 +79,25 @@ async function displayLogs() {
         logsTableBody.appendChild(row);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('downloadSummaryButton').addEventListener('click', function() {
+        const summary = JSON.stringify({
+            topics,
+            logs,
+            microMondiCount
+        });
+        const url = URL.createObjectURL(new File([summary], { type: "application/json" }));
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'resoconto.json';
+        document.body.appendChild(a);
+
+        // Programmatically click the anchor to trigger the download
+        a.click();
+
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+});
