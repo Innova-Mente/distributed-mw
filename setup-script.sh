@@ -8,6 +8,10 @@
 # sudo apt install curl
 
 # This script is meant to be run on a Raspberry Pi 4 with a fresh install of Raspbian OS
+# The script will download the middleware, set up a wireless access point, install the right version of Node.js and set up the middleware to start on boot
+# You can also plug a wired connection to the Raspberry Pi to allow internet access to the devices connected to the wireless access point
+# Although the speed wasn't great from my tests, it's highly suggested to download locally Snap! on the user devices to avoid any issues
+
 # The following guides were used to create this script:
 # https://raspberrypi-guide.github.io/networking/create-wireless-access-point
 # https://stackoverflow.com/questions/21542304/how-to-start-a-node-js-app-on-system-boot
