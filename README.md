@@ -12,8 +12,11 @@ In case you want your Raspberry Pi 4 to provide a WLAN network but don't know ho
 ### Installing the Message Broker
 
 Be aware that the message broker requires Node.js to be installed on the Raspberry Pi 4 or whichever system you are using, with a minimum version of 18.
+
 Here is [a guide](https://xavier.arnaus.net/blog/install-nodejs-20-into-a-raspberry-pi-4) that shows step by step how to install Node.js v20 on a Raspberry Pi 4.
+
 Clone the repository on your system and checkout to the "pellonara" branch.
+
 After that, open a terminal in the repository directory and run the following commands to install the necessary dependencies:
 
 ```
