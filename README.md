@@ -1,8 +1,8 @@
 # Message broker for integrating embedded systems in Microworlds
-## Setup Instructions
 
 In this same repository you can also find [a setup script](https://github.com/Innova-Mente/distrib-mw/blob/pellonara/setup-script.sh) that does this whole process automatically and can get your Raspberry Pi 4 to run the message broker and a WLAN straight out of the box.
 
+## Setup Instructions
 ### Setting up the WLAN Network
 
 First, ensure your Raspberry Pi 4 is set up to provide a WLAN network. In case you are not using a Raspberry Pi 4 to run the message broker or you want a router to create the WLAN network, make sure that the message broker has a static IP address. This ensures that the embedded systems and the Microworlds can always reach the message broker at a consistent IP address.
